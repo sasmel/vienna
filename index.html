@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slow down</title>
+    <link rel="icon" href="https://i.scdn.co/image/ab67616d0000b2736ce61113662ecf693b605ee5" type="image/png">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/digital-7');
+
+        body {
+           color: aliceblue;
+           font-family: 'Courier New', Courier, monospace;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           margin: 0;
+           text-align: center;
+           background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/rain.gif') no-repeat center center fixed; 
+           background-size: cover; 
+        }
+
+        .centered-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+        }
+
+        .centered-text p {
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .casio-clock, .click-button, .play-button {
+            width: 250px;  
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .casio-clock {
+            font-family: 'Digital-7', 'DS-Digital', sans-serif; 
+            font-size: 25px; 
+            color: white; 
+            background-color: rgba(51, 51, 51, 0.8); 
+            padding: 10px 0; 
+            border: 2px solid rgba(51, 51, 51, 0.8); 
+            border-radius: 4px; 
+        }
+
+        .click-button, .play-button {
+            padding: 10px 0; 
+            font-size: 18px;
+            color: black;
+            background-color: aliceblue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .click-button:active, .play-button:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .casio-clock {
+                font-size: 20px;
+                padding: 8px 0;
+            }
+
+            .click-button, .play-button {
+                font-size: 16px; 
+                padding: 8px 0;
+            }
+
+            .centered-text {
+                max-width: 100%;
+            }
+
+            .centered-text p {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="centered-text">
+        <p>Como eu não sabia quanto tempo iria esperar até que você me procurasse.
+            Fiz esse timer pra me ajudar a contar o tempo que passou desde sua ultima mensagem. 
+            E tenho vindo aqui ouvir a música do Billy Joel, infelizmente passei a gostar bastante dela. 
+            Pare o timer quando se sentir pronta.</p>
+
+        <div id="tempo" class="casio-clock"></div>
+
+        <button id="stopButton" class="click-button">PARAR TIMER</button>
+        <button id="playButton" class="play-button">TOCAR MUSICA</button>
+
+    </div>
+
+    <audio id="audioPlayer" src="song/vienna.mp3"></audio>
+
+    <script>
+        function updateTime() {
+            const startTime = new Date('2024-10-05T22:40:00'); 
+            const now = new Date(); 
+            const timeDiff = now - startTime; 
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('tempo').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateTime, 1000);
+
+        document.getElementById('stopButton').addEventListener('click', function() {
+            window.location.href = 'https://wa.me/+5571986693979'; 
+        });
+
+        document.getElementById('playButton').addEventListener('click', function() {
+        const audio = document.getElementById('audioPlayer');
+
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+            audio.currentTime = 0;  
+        }
+    });
+    </script>
+</body>
+</html>
